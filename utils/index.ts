@@ -15,7 +15,8 @@ export interface item {
 
 async function getStory(id: number): Promise<item> {
   const response = await fetch(
-    `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
+    `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`,
+    { cache: "no-store" }
   );
   const data = await response.json();
   return data;
@@ -23,7 +24,8 @@ async function getStory(id: number): Promise<item> {
 
 async function getBestStories(): Promise<id> {
   const response = await fetch(
-    "https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty"
+    "https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty",
+    { next: { revalidate: 3600 } }
   );
   const data = await response.json();
   const id = Math.round(Math.random() * (data.length - 1));
