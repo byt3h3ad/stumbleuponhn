@@ -25,7 +25,7 @@ async function getStory(id: number): Promise<item> {
 async function getBestStories(): Promise<id> {
   const response = await fetch(
     "https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty",
-    // { cache: "no-store" }
+    { next: { revalidate: 3600 } }
   );
   const data = await response.json();
   const id = Math.round(Math.random() * (data.length - 1));
