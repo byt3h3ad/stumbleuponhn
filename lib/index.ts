@@ -11,6 +11,7 @@ export interface item {
   title: string;
   type: string;
   url: string;
+  text?: string;
 }
 
 async function getStory(id: number): Promise<item> {
@@ -37,7 +38,7 @@ async function getData(): Promise<item> {
     const id: id = await getBestStories();
     const story: item = await getStory(id);
     return story;
-  } catch (e) {
+  } catch (e: any) {
     console.error(`Error: ${e}`);
     const fallbackStory: item = fallback;
     return fallbackStory;
